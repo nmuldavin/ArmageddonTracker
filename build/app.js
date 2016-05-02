@@ -20083,7 +20083,7 @@ var Asteroid = React.createClass({
     return React.createElement(
       'p',
       null,
-      this.props.key
+      JSON.stringify(this.props.data)
     );
   }
 });
@@ -20110,7 +20110,7 @@ var AsteroidBox = React.createClass({
     return {
       start_date: start_date,
       end_date: end_date,
-      data: {}
+      data: []
     };
   },
   componentDidMount: function () {
@@ -20132,7 +20132,9 @@ var AsteroidBox = React.createClass({
   },
   // builds cleaner total dataset
   saveImportantData: function (APIData) {
+
     var data = [];
+
     for (var date in APIData.near_earth_objects) {
       var entry = {};
       entry.date = isodate(date);
@@ -20184,17 +20186,15 @@ var AsteroidBox = React.createClass({
   },
   render: function () {
 
-    //var that = this;
-    //var dayBoxes = Object.keys(that.state.data).map(function(day) {
-    //  return (
-    //    <DayBox data={that.state.data[day]} day = {day} key={day} />
-    //  )
-    //});
+    var that = this;
+    var dayBoxes = that.state.data.map(function (entry) {
+      return React.createElement(DayBox, { data: entry.encounters, date: entry.date, key: entry.date });
+    });
 
     return React.createElement(
       'div',
       null,
-      JSON.stringify(this.state.data)
+      dayBoxes
     );
   }
 });
@@ -20209,10 +20209,21 @@ var DayBox = React.createClass({
   displayName: 'DayBox',
 
   render: function () {
+
+    var that = this;
+    var asteroids = that.props.data.map(function (ast) {
+      return React.createElement(Asteroid, { data: ast, key: ast.id });
+    });
+
     return React.createElement(
-      'p',
+      'div',
       null,
-      this.props.day
+      React.createElement(
+        'p',
+        null,
+        this.props.date.toString()
+      ),
+      asteroids
     );
   }
 });

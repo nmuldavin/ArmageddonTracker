@@ -16,7 +16,7 @@ var AsteroidBox = React.createClass({
     return {
       start_date: start_date,
       end_date: end_date,
-      data: {}
+      data: []
     }
   },
   componentDidMount: function() {
@@ -38,7 +38,9 @@ var AsteroidBox = React.createClass({
   },
   // builds cleaner total dataset
   saveImportantData: function(APIData) {
+
     var data = [];
+
     for (var date in APIData.near_earth_objects) {
       var entry = {};
       entry.date = isodate(date);
@@ -84,7 +86,6 @@ var AsteroidBox = React.createClass({
         that.setState({
           data: that.saveImportantData(JSON.parse(body))
         });
-        console.log(that.state.data);
       }
     };
 
@@ -93,16 +94,16 @@ var AsteroidBox = React.createClass({
   },
   render: function() {
 
-    //var that = this;
-    //var dayBoxes = Object.keys(that.state.data).map(function(day) {
-    //  return (
-    //    <DayBox data={that.state.data[day]} day = {day} key={day} />
-    //  )
-    //});
+    var that = this;
+    var dayBoxes = that.state.data.map(function(entry) {
+      return (
+        <DayBox data={entry.encounters} date={entry.date} key={entry.date}/>
+      )
+    });
 
     return (
       <div>
-        {JSON.stringify(this.state.data)}
+        {dayBoxes}
       </div>
     )
   }
