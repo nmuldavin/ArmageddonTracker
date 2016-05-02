@@ -1,6 +1,10 @@
 var React = require('react');
 var request = require('browser-request');
 var dateFormat = require('dateformat');
+var isodate = require('isodate');
+var Asteroid = require('./Asteroid');
+var DayBox = require('./DayBox');
+
 
 var AsteroidBox = React.createClass({
   getInitialState: function() {
@@ -24,7 +28,7 @@ var AsteroidBox = React.createClass({
       name: APIEncounterData.name,
       id: APIEncounterData.neo_reference_id,
       jpl_url: APIEncounterData.nasa_jpl_url,
-      date: Date.parse(APIEncounterData.close_approach_data[0].close_approach_date),
+      date: isodate(APIEncounterData.close_approach_data[0].close_approach_date),
       min_diameter: APIEncounterData.estimated_diameter.meters.estimated_diameter_min, // in meters
       max_diameter: APIEncounterData.estimated_diameter.meters.estimated_diameter_max, // in meters
       miss_distance: APIEncounterData.close_approach_data[0].miss_distance.kilometers, // in kilometers
@@ -34,18 +38,31 @@ var AsteroidBox = React.createClass({
   },
   // builds cleaner total dataset
   saveImportantData: function(APIData) {
-    var data = {};
-    for (date in APIData.near_earth_objects) {
-
-      data[date] = [];
+    var data = [];
+    for (var date in APIData.near_earth_objects) {
+      var entry = {};
+      entry.date = isodate(date);
+      entry.encounters = [];
 
       for (var i = 0; i < APIData.near_earth_objects[date].length; i++) {
-
-        data[date].push(
+        entry.encounters.push(
           this.saveImportantEncounterData(APIData.near_earth_objects[date][i])
         );
       }
+      data.push(entry);
     }
+
+      data.sort(function (a, b) {
+        if (a.date > b.date) {
+          return 1;
+        }
+        if (a.date < b.date) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      });
+
     return data;
   },
   //makes API request
@@ -67,6 +84,7 @@ var AsteroidBox = React.createClass({
         that.setState({
           data: that.saveImportantData(JSON.parse(body))
         });
+        console.log(that.state.data);
       }
     };
 
@@ -74,7 +92,19 @@ var AsteroidBox = React.createClass({
 
   },
   render: function() {
-    return <p>{JSON.stringify(this.state.data)}</p>
+
+    //var that = this;
+    //var dayBoxes = Object.keys(that.state.data).map(function(day) {
+    //  return (
+    //    <DayBox data={that.state.data[day]} day = {day} key={day} />
+    //  )
+    //});
+
+    return (
+      <div>
+        {JSON.stringify(this.state.data)}
+      </div>
+    )
   }
 });
 
