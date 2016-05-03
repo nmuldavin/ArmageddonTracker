@@ -4,3 +4,15 @@ body, html {
     margin: 0;
     background-color: #282828
 }
+
+.calendar {
+    width: 100%
+}
+
+.day {
+    width: 100%;
+    display: left;
+    vertical-align:top;
+    background-color: brown;
+    word-wrap: break-word;
+}

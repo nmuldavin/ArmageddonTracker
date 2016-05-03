@@ -11,7 +11,7 @@ var DayBox = React.createClass({
     });
 
     return (
-      <div>
+      <div className="day" >
         <p>{this.props.date.toString()}</p>
         {asteroids}
       </div>

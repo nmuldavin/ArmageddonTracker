@@ -28,7 +28,6 @@ var AsteroidBox = React.createClass({
       name: APIEncounterData.name,
       id: APIEncounterData.neo_reference_id,
       jpl_url: APIEncounterData.nasa_jpl_url,
-      date: isodate(APIEncounterData.close_approach_data[0].close_approach_date),
       min_diameter: APIEncounterData.estimated_diameter.meters.estimated_diameter_min, // in meters
       max_diameter: APIEncounterData.estimated_diameter.meters.estimated_diameter_max, // in meters
       miss_distance: APIEncounterData.close_approach_data[0].miss_distance.kilometers, // in kilometers
@@ -102,7 +101,7 @@ var AsteroidBox = React.createClass({
     });
 
     return (
-      <div>
+      <div className="calendar">
         {dayBoxes}
       </div>
     )

@@ -20122,7 +20122,6 @@ var AsteroidBox = React.createClass({
       name: APIEncounterData.name,
       id: APIEncounterData.neo_reference_id,
       jpl_url: APIEncounterData.nasa_jpl_url,
-      date: isodate(APIEncounterData.close_approach_data[0].close_approach_date),
       min_diameter: APIEncounterData.estimated_diameter.meters.estimated_diameter_min, // in meters
       max_diameter: APIEncounterData.estimated_diameter.meters.estimated_diameter_max, // in meters
       miss_distance: APIEncounterData.close_approach_data[0].miss_distance.kilometers, // in kilometers
@@ -20178,7 +20177,6 @@ var AsteroidBox = React.createClass({
         that.setState({
           data: that.saveImportantData(JSON.parse(body))
         });
-        console.log(that.state.data);
       }
     };
 
@@ -20193,7 +20191,7 @@ var AsteroidBox = React.createClass({
 
     return React.createElement(
       'div',
-      null,
+      { className: 'calendar' },
       dayBoxes
     );
   }
@@ -20210,14 +20208,13 @@ var DayBox = React.createClass({
 
   render: function () {
 
-    var that = this;
-    var asteroids = that.props.data.map(function (ast) {
+    var asteroids = this.props.data.map(function (ast) {
       return React.createElement(Asteroid, { data: ast, key: ast.id });
     });
 
     return React.createElement(
       'div',
-      null,
+      { className: 'day' },
       React.createElement(
         'p',
         null,
