@@ -1,5 +1,6 @@
 var React = require('react');
 var Asteroid = require('./Asteroid');
+var DateBox = require('./DateBox');
 
 var DayBox = React.createClass({
   render: function() {
@@ -12,7 +13,7 @@ var DayBox = React.createClass({
 
     return (
       <div className="day" >
-        <p>{this.props.date.toString()}</p>
+        <DateBox date={this.props.date} />
         {asteroids}
       </div>
     );

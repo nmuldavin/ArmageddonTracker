@@ -3,7 +3,7 @@ var request = require('browser-request');
 var dateFormat = require('dateformat');
 var isodate = require('isodate');
 var Asteroid = require('./Asteroid');
-var DayBox = require('./DayBox');
+var Day = require('./Day');
 
 
 var AsteroidBox = React.createClass({
@@ -94,15 +94,15 @@ var AsteroidBox = React.createClass({
   render: function() {
 
     var that = this;
-    var dayBoxes = that.state.data.map(function(entry) {
+    var days = that.state.data.map(function(entry) {
       return (
-        <DayBox data={entry.encounters} date={entry.date} key={entry.date}/>
+        <Day data={entry.encounters} date={entry.date} key={entry.date}/>
       )
     });
 
     return (
       <div className="calendar">
-        {dayBoxes}
+        {days}
       </div>
     )
   }
