@@ -20080,6 +20080,7 @@ var Asteroid = React.createClass({
   displayName: "Asteroid",
 
   render: function () {
+    console.log(this.props.data);
     return React.createElement(
       "div",
       { className: "Asteroid" },

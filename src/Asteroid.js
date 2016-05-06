@@ -2,6 +2,7 @@ var React = require('react');
 
 var Asteroid = React.createClass({
   render: function() {
+    console.log(this.props.data);
     return (
       <div className="Asteroid">
         <h4>{this.props.data.name}</h4>
