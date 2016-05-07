@@ -6,7 +6,7 @@ var ExpandingCircle = React.createClass({
   getInitialState: function() {
     return {
       expanded: false
-    }
+    };
   },
   expand: function(e) {
     this.setState({expanded: true});
@@ -18,10 +18,10 @@ var ExpandingCircle = React.createClass({
     var defaults = {
       position: "relative",
       top: "50%",
+      transform: "translateY(-50%)",
       float: "left",
       display: "inlineBlock",
       textAlign: "center",
-      transform: "translateY(-50%)",
       width: radius*2,
       height: radius*2,
       borderRadius: radius
@@ -45,7 +45,9 @@ var ExpandingCircle = React.createClass({
     var that = this;
 
     var circle = function(val) {
+
       var style = that.setStyle(val.r);
+
       return (
         <div
           style={style}
@@ -54,10 +56,12 @@ var ExpandingCircle = React.createClass({
         >
           <div>
             {that.props.children}
-            <div style={{opacity: val.o}}>{that.props.extraContent}</div>
+            <div style={{opacity: val.o}}>
+              {that.props.extraContent}
+            </div>
           </div>
         </div>
-      )
+      );
     };
     return (
       <Motion defaultStyle={initial} style={targets}>
