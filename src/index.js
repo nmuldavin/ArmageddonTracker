@@ -1,15 +1,27 @@
 var ReactDOM = require('react-dom');
 var React = require('react');
-var Calendar = require('./Calendar');
+var ExpandingCircle = require('./ExpandingCircle');
 
+var style = {
+  backgroundColor: "black",
+  height: 200
+};
+
+var circleStyle = {
+  backgroundColor: "gray",
+}
 ReactDOM.render(
   <div>
-    <div id="topbar">
-      <h1 id="title">Armageddon Tracker</h1>
+    <div style={style}>
+      <ExpandingCircle
+        dimensions={{standardRadius: 50, expandedRadius: 100}}
+        style={circleStyle}
+        extraContent={<div>BUTTS</div>}
+      >
+          <p style={{margin: 20}}>Sheeeit</p>
+      </ExpandingCircle>
     </div>
-    <Calendar />
   </div>
-
   ,
-  document.getElementById('app')
+  document.getElementById('mount-point')
 );
