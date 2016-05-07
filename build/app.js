@@ -21286,24 +21286,37 @@ var Asteroid = React.createClass({
     var moreInfo = React.createElement(
       'div',
       null,
-      'Sheeeeeit'
+      React.createElement(
+        'p',
+        null,
+        'Sheeeeeit'
+      ),
+      React.createElement(
+        'p',
+        null,
+        'Sheeeeeit'
+      ),
+      React.createElement(
+        'p',
+        null,
+        'Sheeeeeit'
+      )
     );
+    var top = this.props.data.name;
+    var bottom = wholeNumber(this.props.data.min_diameter) + "-" + wholeNumber(this.props.data.max_diameter) + "m";
     return React.createElement(
       ExpandingCircle,
       {
         dimensions: { standardRadius: 60, expandedRadius: 100 },
         style: asteroidStyle,
+        top: top,
+        bottom: bottom,
         extraContent: moreInfo
       },
       React.createElement(
         'p',
         { style: { marginTop: 35 } },
         this.props.data.name
-      ),
-      React.createElement(
-        'p',
-        null,
-        wholeNumber(this.props.data.min_diameter) + "-" + wholeNumber(this.props.data.max_diameter) + "m"
       )
     );
   }
@@ -21330,10 +21343,11 @@ var ExpandingCircle = React.createClass({
   contract: function (e) {
     this.setState({ expanded: false });
   },
-  setStyle: function (radius) {
+  setCircleStyle: function (radius) {
     var defaults = {
       position: "relative",
       top: "50%",
+      padding: 0,
       transform: "translateY(-50%)",
       float: "left",
       display: "inlineBlock",
@@ -21343,6 +21357,17 @@ var ExpandingCircle = React.createClass({
       borderRadius: radius
     };
     return Object.assign(defaults, this.props.style);
+  },
+  setMiddleStyle: function (opacity) {
+    return {
+      opacity: opacity,
+      position: "absolute",
+      top: "50%",
+      transform: "translateY(-50%)",
+      left: 0,
+      right: 0,
+      margin: "0 auto"
+    };
   },
   render: function () {
     var targetRadius = this.state.expanded ? this.props.dimensions.expandedRadius : this.props.dimensions.standardRadius;
@@ -21360,23 +21385,50 @@ var ExpandingCircle = React.createClass({
 
     var circle = function (val) {
 
-      var style = that.setStyle(val.r);
+      var circleStyle = that.setCircleStyle(val.r);
 
+      var topStyle = {
+        position: "absolute",
+        top: that.props.dimensions.standardRadius / 2,
+        left: 0,
+        right: 0,
+        margin: "0 auto",
+        transform: "translateY (-50%)"
+      };
+
+      var bottomStyle = {
+        position: "absolute",
+        bottom: that.props.dimensions.standardRadius / 2,
+        left: 0,
+        right: 0,
+        margin: "0 auto",
+        transform: "translateY (-50%)"
+      };
+      var middleStyle = that.setMiddleStyle(val.o);
       return React.createElement(
         'div',
         {
-          style: style,
+          style: circleStyle,
           onMouseOver: that.expand,
           onMouseOut: that.contract
         },
         React.createElement(
           'div',
           null,
-          that.props.children,
           React.createElement(
             'div',
-            { style: { opacity: val.o } },
+            { style: topStyle },
+            that.props.top
+          ),
+          React.createElement(
+            'div',
+            { style: middleStyle },
             that.props.extraContent
+          ),
+          React.createElement(
+            'div',
+            { style: bottomStyle },
+            that.props.bottom
           )
         )
       );
