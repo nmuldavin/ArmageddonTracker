@@ -40,6 +40,25 @@ var ExpandingCircle = React.createClass({
       margin: "0 auto"
     }
   },
+  defaultContentStyle: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    margin: "0 auto",
+    transform: "translateY (-50%)"
+  },
+  topStyle: function() {
+    var extras = {
+      top: this.props.dimensions.standardRadius/2
+    };
+    return Object.assign({}, this.defaultContentStyle, extras);
+  },
+  bottomStyle: function() {
+    var extras = {
+      bottom: this.props.dimensions.standardRadius/2
+    };
+    return Object.assign({}, this.defaultContentStyle, extras);
+  },
   render: function() {
     var targetRadius = this.state.expanded ?
       this.props.dimensions.expandedRadius:
@@ -85,13 +104,13 @@ var ExpandingCircle = React.createClass({
           onMouseOut={that.contract}
         >
           <div>
-            <div style={topStyle}>
+            <div style={that.topStyle()}>
               {that.props.top}
             </div>
             <div style={middleStyle}>
               {that.props.extraContent}
             </div>
-            <div style={bottomStyle}>
+            <div style={that.bottomStyle()}>
               {that.props.bottom}
             </div>
           </div>

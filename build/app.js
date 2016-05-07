@@ -21369,6 +21369,19 @@ var ExpandingCircle = React.createClass({
       margin: "0 auto"
     };
   },
+  defaultContentStyle: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    margin: "0 auto",
+    transform: "translateY (-50%)"
+  },
+  topStyle: function () {
+    var extras = {
+      top: this.props.dimensions.standardRadius / 2
+    };
+    return Object.assign({}, this.defaultContentStyle, extras);
+  },
   render: function () {
     var targetRadius = this.state.expanded ? this.props.dimensions.expandedRadius : this.props.dimensions.standardRadius;
 
@@ -21417,7 +21430,7 @@ var ExpandingCircle = React.createClass({
           null,
           React.createElement(
             'div',
-            { style: topStyle },
+            { style: that.topStyle() },
             that.props.top
           ),
           React.createElement(
