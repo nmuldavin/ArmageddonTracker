@@ -1,6 +1,7 @@
 var ReactDOM = require('react-dom');
 var React = require('react');
 var Asteroid = require('./Asteroid');
+var Calendar = require('./Calendar');
 
 var style = {
   backgroundColor: "black",
@@ -19,18 +20,7 @@ var data = {
 };
 
 ReactDOM.render(
-  <div>
-    <div style={style}>
-      <Asteroid data={data}/>
-      <Asteroid data={data}/>
-      <Asteroid data={data}/>
-      <Asteroid data={data}/>
-      <Asteroid data={data}/>
-      <Asteroid data={data}/>
-      <Asteroid data={data}/>
-      <Asteroid data={data}/>
-    </div>
-  </div>
+  <Calendar />
   ,
   document.getElementById('mount-point')
 );
