@@ -22140,8 +22140,20 @@ var Calendar = React.createClass({
   },
   // constructs cleaner/smaller representation of asteroid data
   saveImportantEncounterData: function (APIEncounterData) {
+
+    var parseAsteroidName = function (apiName) {
+      var givenNameRegExp = /([a-z]*) \(/i;
+      var idRegExp = /\((.*?)\)/;
+      var result = givenNameRegExp.exec(apiName);
+      if (result && result[1]) {
+        return result[1];
+      } else {
+        return idRegExp.exec(apiName)[1];
+      }
+    };
+
     return {
-      name: APIEncounterData.name,
+      name: parseAsteroidName(APIEncounterData.name),
       jpl_url: APIEncounterData.nasa_jpl_url,
       min_diameter: APIEncounterData.estimated_diameter.meters.estimated_diameter_min, // in meters
       max_diameter: APIEncounterData.estimated_diameter.meters.estimated_diameter_max, // in meters
@@ -22152,7 +22164,6 @@ var Calendar = React.createClass({
   },
   // builds cleaner total dataset
   saveImportantData: function (APIData) {
-
     var data = [];
 
     for (var date in APIData.near_earth_objects) {
