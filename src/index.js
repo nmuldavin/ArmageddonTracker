@@ -22,6 +22,13 @@ ReactDOM.render(
   <div>
     <div style={style}>
       <Asteroid data={data}/>
+      <Asteroid data={data}/>
+      <Asteroid data={data}/>
+      <Asteroid data={data}/>
+      <Asteroid data={data}/>
+      <Asteroid data={data}/>
+      <Asteroid data={data}/>
+      <Asteroid data={data}/>
     </div>
   </div>
   ,

@@ -21271,8 +21271,14 @@ var ExpandingCircle = require('./ExpandingCircle');
 var formatNumber = require('format-number-with-string');
 
 var asteroidStyle = {
+  position: "relative",
+  top: "50%",
+  fontSize: "115%",
+  transform: "translateY(-50%)",
+  float: "left",
+  display: "inlineBlock",
   backgroundColor: "gray",
-  fontFamily: "Orbitron"
+  fontFamily: "Droid Sans"
 };
 
 var wholeNumber = function (num) {
@@ -21283,23 +21289,83 @@ var Asteroid = React.createClass({
   displayName: 'Asteroid',
 
   render: function () {
+    var contentStyle = {
+      fontSize: "70%",
+      display: "inlineBlock",
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translateX(-50%) translateY(-45%)"
+    };
+    var tableStyle = {
+      textAlign: "left",
+      whiteSpace: "noWrap"
+    };
+    var linkStyle = {
+      color: "#000066",
+      textDecoration: "none"
+    };
     var moreInfo = React.createElement(
       'div',
-      null,
+      { style: contentStyle },
       React.createElement(
-        'p',
-        null,
-        'Sheeeeeit'
+        'table',
+        { style: tableStyle },
+        React.createElement(
+          'tbody',
+          null,
+          React.createElement(
+            'tr',
+            null,
+            React.createElement(
+              'td',
+              null,
+              'Relative Velocity:'
+            ),
+            React.createElement(
+              'td',
+              null,
+              wholeNumber(this.props.data.relative_velocity) + " km/h"
+            )
+          ),
+          React.createElement(
+            'tr',
+            null,
+            React.createElement(
+              'td',
+              null,
+              'Miss Distance:'
+            ),
+            React.createElement(
+              'td',
+              null,
+              wholeNumber(this.props.data.miss_distance) + " km"
+            )
+          ),
+          React.createElement(
+            'tr',
+            null,
+            React.createElement(
+              'td',
+              null,
+              'Hazardous:'
+            ),
+            React.createElement(
+              'td',
+              null,
+              this.props.data.shoud_we_call_bruce ? "Yes" : "No"
+            )
+          )
+        )
       ),
       React.createElement(
-        'p',
-        null,
-        'Sheeeeeit'
-      ),
-      React.createElement(
-        'p',
-        null,
-        'Sheeeeeit'
+        'div',
+        { style: { paddingTop: 5 } },
+        React.createElement(
+          'a',
+          { style: linkStyle, href: this.props.data.jpl_url, target: '_blank' },
+          'More Info'
+        )
       )
     );
     var top = this.props.data.name;
@@ -21345,12 +21411,7 @@ var ExpandingCircle = React.createClass({
   },
   setCircleStyle: function (radius) {
     var defaults = {
-      position: "relative",
-      top: "50%",
       padding: 0,
-      transform: "translateY(-50%)",
-      float: "left",
-      display: "inlineBlock",
       textAlign: "center",
       width: radius * 2,
       height: radius * 2,
@@ -21358,27 +21419,31 @@ var ExpandingCircle = React.createClass({
     };
     return Object.assign(defaults, this.props.style);
   },
-  setMiddleStyle: function (opacity) {
-    return {
-      opacity: opacity,
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      left: 0,
-      right: 0,
-      margin: "0 auto"
-    };
-  },
   defaultContentStyle: {
     position: "absolute",
     left: 0,
     right: 0,
-    margin: "0 auto",
-    transform: "translateY (-50%)"
+    transform: "translateY (-50%)",
+    margin: "0 auto"
+  },
+  setMiddleStyle: function (opacity) {
+    var extras = {
+      top: "50%",
+      transform: "translateY(-50%)",
+      opacity: opacity,
+      width: this.props.dimensions.standardRadius * 2
+    };
+    return Object.assign({}, this.defaultContentStyle, extras);
   },
   topStyle: function () {
     var extras = {
       top: this.props.dimensions.standardRadius / 2
+    };
+    return Object.assign({}, this.defaultContentStyle, extras);
+  },
+  bottomStyle: function () {
+    var extras = {
+      bottom: this.props.dimensions.standardRadius / 2
     };
     return Object.assign({}, this.defaultContentStyle, extras);
   },
@@ -21399,25 +21464,8 @@ var ExpandingCircle = React.createClass({
     var circle = function (val) {
 
       var circleStyle = that.setCircleStyle(val.r);
-
-      var topStyle = {
-        position: "absolute",
-        top: that.props.dimensions.standardRadius / 2,
-        left: 0,
-        right: 0,
-        margin: "0 auto",
-        transform: "translateY (-50%)"
-      };
-
-      var bottomStyle = {
-        position: "absolute",
-        bottom: that.props.dimensions.standardRadius / 2,
-        left: 0,
-        right: 0,
-        margin: "0 auto",
-        transform: "translateY (-50%)"
-      };
       var middleStyle = that.setMiddleStyle(val.o);
+
       return React.createElement(
         'div',
         {
@@ -21440,12 +21488,13 @@ var ExpandingCircle = React.createClass({
           ),
           React.createElement(
             'div',
-            { style: bottomStyle },
+            { style: that.bottomStyle() },
             that.props.bottom
           )
         )
       );
     };
+
     return React.createElement(
       Motion,
       { defaultStyle: initial, style: targets },
@@ -21483,6 +21532,13 @@ ReactDOM.render(React.createElement(
   React.createElement(
     'div',
     { style: style },
+    React.createElement(Asteroid, { data: data }),
+    React.createElement(Asteroid, { data: data }),
+    React.createElement(Asteroid, { data: data }),
+    React.createElement(Asteroid, { data: data }),
+    React.createElement(Asteroid, { data: data }),
+    React.createElement(Asteroid, { data: data }),
+    React.createElement(Asteroid, { data: data }),
     React.createElement(Asteroid, { data: data })
   )
 ), document.getElementById('mount-point'));

@@ -3,8 +3,14 @@ var ExpandingCircle = require('./ExpandingCircle');
 var formatNumber = require('format-number-with-string');
 
 var asteroidStyle = {
+  position: "relative",
+  top: "50%",
+  fontSize: "115%",
+  transform: "translateY(-50%)",
+  float: "left",
+  display: "inlineBlock",
   backgroundColor: "gray",
-  fontFamily: "Orbitron",
+  fontFamily: "Droid Sans"
 };
 
 var wholeNumber = function(num) {
@@ -13,11 +19,53 @@ var wholeNumber = function(num) {
 
 var Asteroid = React.createClass({
   render: function() {
+    var contentStyle = {
+      fontSize: "70%",
+      display: "inlineBlock",
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translateX(-50%) translateY(-45%)"
+    };
+    var tableStyle = {
+      textAlign: "left",
+      whiteSpace: "noWrap",
+    };
+    var linkStyle = {
+      color: "#000066",
+      textDecoration: "none"
+    };
     var moreInfo = (
-      <div>
-        <p>Sheeeeeit</p>
-        <p>Sheeeeeit</p>
-        <p>Sheeeeeit</p>
+      <div style={contentStyle}>
+        <table style={tableStyle}>
+          <tbody>
+            <tr>
+              <td>
+                Relative Velocity:
+              </td>
+              <td>
+                {wholeNumber(this.props.data.relative_velocity) + " km/h"}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Miss Distance:
+              </td>
+              <td>
+                {wholeNumber(this.props.data.miss_distance) + " km"}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Hazardous:
+              </td>
+              <td>
+                {this.props.data.shoud_we_call_bruce ? "Yes" : "No"}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div style={{paddingTop: 5}}><a style={linkStyle} href={this.props.data.jpl_url} target="_blank">More Info</a></div>
       </div>
     );
     var top = this.props.data.name;

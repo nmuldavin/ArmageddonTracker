@@ -16,12 +16,7 @@ var ExpandingCircle = React.createClass({
   },
   setCircleStyle: function(radius) {
     var defaults = {
-      position: "relative",
-      top: "50%",
       padding: 0,
-      transform: "translateY(-50%)",
-      float: "left",
-      display: "inlineBlock",
       textAlign: "center",
       width: radius*2,
       height: radius*2,
@@ -29,23 +24,21 @@ var ExpandingCircle = React.createClass({
     };
     return Object.assign(defaults, this.props.style);
   },
-  setMiddleStyle: function(opacity) {
-    return {
-      opacity: opacity,
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      left: 0,
-      right: 0,
-      margin: "0 auto"
-    }
-  },
   defaultContentStyle: {
     position: "absolute",
     left: 0,
     right: 0,
-    margin: "0 auto",
-    transform: "translateY (-50%)"
+    transform: "translateY (-50%)",
+    margin: "0 auto"
+  },
+  setMiddleStyle: function(opacity) {
+    var extras = {
+      top: "50%",
+      transform: "translateY(-50%)",
+      opacity: opacity,
+      width: this.props.dimensions.standardRadius*2
+    };
+    return Object.assign({}, this.defaultContentStyle, extras);
   },
   topStyle: function() {
     var extras = {
@@ -78,25 +71,8 @@ var ExpandingCircle = React.createClass({
     var circle = function(val) {
 
       var circleStyle = that.setCircleStyle(val.r);
-
-      var topStyle = {
-        position: "absolute",
-        top: that.props.dimensions.standardRadius/2,
-        left: 0,
-        right: 0,
-        margin: "0 auto",
-        transform: "translateY (-50%)"
-      };
-
-      var bottomStyle = {
-        position: "absolute",
-        bottom: that.props.dimensions.standardRadius/2,
-        left: 0,
-        right: 0,
-        margin: "0 auto",
-        transform: "translateY (-50%)"
-      };
       var middleStyle = that.setMiddleStyle(val.o);
+
       return (
         <div
           style={circleStyle}
@@ -117,6 +93,7 @@ var ExpandingCircle = React.createClass({
         </div>
       );
     };
+
     return (
       <Motion defaultStyle={initial} style={targets}>
         {circle}
