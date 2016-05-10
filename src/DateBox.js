@@ -4,7 +4,7 @@ var dateFormat = require('dateformat');
 var DateBox = React.createClass({
   render: function() {
     var style = {
-      height: 200,
+      height: 100,
       width: 20,
       letterSpacing: 6,
       padding: 4,

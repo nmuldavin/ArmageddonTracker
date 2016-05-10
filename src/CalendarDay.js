@@ -7,11 +7,11 @@ var CalendarDay = React.createClass({
 
     var style = {
       height: 206,
-      width: 2000,
+      minWidth: 2000,
+      width: "100%",
       float: "left",
       whiteSpace: "nowrap",
-      overflowX: "scroll",
-      overflowY: "visible",
+      overflow: "hidden",
       padding: 3,
       margin: 0,
       borderBottom: "1px solid #262626"
