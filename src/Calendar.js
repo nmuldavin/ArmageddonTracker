@@ -3,6 +3,7 @@ var request = require('browser-request');
 var dateFormat = require('dateformat');
 var isodate = require('isodate');
 var CalendarDay = require('./CalendarDay');
+var Header = require('./Header');
 
 
 var Calendar = React.createClass({
@@ -116,7 +117,8 @@ var Calendar = React.createClass({
     console.log(this.state.data);
 
     return (
-      <div style={{overflow: "auto"}}>
+      <div>
+        <Header/>
         {days}
       </div>
     )
