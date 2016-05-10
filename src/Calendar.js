@@ -4,14 +4,15 @@ var dateFormat = require('dateformat');
 var isodate = require('isodate');
 var CalendarDay = require('./CalendarDay');
 var Header = require('./Header');
+var Button = require('react-button');
+var dateMath = require('date-arithmetic');
 
 
 var Calendar = React.createClass({
   getInitialState: function() {
 
     var start_date = new Date();
-    var end_date = new Date();
-    end_date.setDate(start_date.getDate() + 7);
+    var end_date = dateMath.add(start_date, 7, "day");
 
     return {
       start_date: start_date,
@@ -96,13 +97,19 @@ var Calendar = React.createClass({
     var callback = function(error, response, body) {
       if (!error && response.statusCode == 200) {
         that.setState({
-          data: that.saveImportantData(JSON.parse(body))
+          data: that.state.data.concat(that.saveImportantData(JSON.parse(body)))
         });
       }
     };
 
     request(options, callback);
 
+  },
+  loadmore: function(e) {
+    this.setState({
+      start_date: dateMath.add(this.state.start_date, 8, "day"),
+      end_date: dateMath.add(this.state.end_date, 8, "day")
+    }, this.getEncountersData);
   },
   render: function() {
 
@@ -111,15 +118,26 @@ var Calendar = React.createClass({
     var days = that.state.data.map(function(entry) {
       return (
         <CalendarDay style={{width: "100%"}} data={entry.encounters} date={entry.date} key={entry.date} />
-      )
+      );
     });
 
-    console.log(this.state.data);
-
+    var theme = {
+      style: {
+        width: "100%",
+        border: "none",
+        margin: 0,
+        fontSize: "1.7em",
+        letterSpacing: 6
+      },
+      overStyle: {
+        background: "gray"
+      }
+    };
     return (
       <div>
         <Header/>
         {days}
+        <Button theme={theme} onClick={this.loadmore} >Load More</Button>
       </div>
     )
   }
