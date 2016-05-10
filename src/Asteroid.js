@@ -6,11 +6,11 @@ var asteroidStyle = {
   position: "relative",
   top: "50%",
   fontSize: "115%",
+  margin: 0,
   transform: "translateY(-50%)",
+  overflow: "visible",
   float: "left",
-  display: "inlineBlock",
   backgroundColor: "gray",
-  fontFamily: "Droid Sans"
 };
 
 var wholeNumber = function(num) {
@@ -29,7 +29,7 @@ var Asteroid = React.createClass({
     };
     var tableStyle = {
       textAlign: "left",
-      whiteSpace: "noWrap",
+      whiteSpace: "nowrap"
     };
     var linkStyle = {
       color: "#000066",

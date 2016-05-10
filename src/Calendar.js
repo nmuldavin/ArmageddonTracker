@@ -2,6 +2,7 @@ var React = require('react');
 var request = require('browser-request');
 var dateFormat = require('dateformat');
 var isodate = require('isodate');
+var CalendarDay = require('./CalendarDay');
 
 
 var Calendar = React.createClass({
@@ -27,6 +28,7 @@ var Calendar = React.createClass({
       var givenNameRegExp = /([a-z]*) \(/i;
       var idRegExp = /\((.*?)\)/;
       var result = givenNameRegExp.exec(apiName);
+
       if (result && result[1]) {
         return result[1];
       } else {
@@ -37,6 +39,7 @@ var Calendar = React.createClass({
     return {
       name: parseAsteroidName(APIEncounterData.name),
       jpl_url: APIEncounterData.nasa_jpl_url,
+      id: parseInt(APIEncounterData.neo_reference_id, 10),
       min_diameter: APIEncounterData.estimated_diameter.meters.estimated_diameter_min, // in meters
       max_diameter: APIEncounterData.estimated_diameter.meters.estimated_diameter_max, // in meters
       miss_distance: parseFloat(APIEncounterData.close_approach_data[0].miss_distance.kilometers), // in kilometers
@@ -88,6 +91,7 @@ var Calendar = React.createClass({
     };
 
     var that = this;
+
     var callback = function(error, response, body) {
       if (!error && response.statusCode == 200) {
         that.setState({
@@ -102,15 +106,18 @@ var Calendar = React.createClass({
   render: function() {
 
     var that = this;
+
     var days = that.state.data.map(function(entry) {
       return (
-        <div data={entry.encounters} date={entry.date} key={entry.date}></div>
+        <CalendarDay style={{width: "100%"}} data={entry.encounters} date={entry.date} key={entry.date} />
       )
     });
+
     console.log(this.state.data);
+
     return (
-      <div className="calendar">
-        {JSON.stringify(this.state.data)}
+      <div style={{overflow: "auto"}}>
+        {days}
       </div>
     )
   }
