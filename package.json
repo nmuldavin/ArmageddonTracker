@@ -9,17 +9,22 @@
   },
   "author": "nmuldavin",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nmuldavin/ArmageddonTracker"
+  },
   "dependencies": {
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.3.0",
     "browser-request": "^0.3.3",
-    "date-arithmetic": "^3.0.1",
-    "dateformat": "^1.0.12",
-    "material-ui": "^0.15.0",
+    "format-number-with-string": "0.0.2",
+    "moment": "^2.13.0",
     "react": "^15.0.2",
     "react-button": "^1.2.1",
+    "react-datepicker": "^0.27.0",
     "react-dom": "^15.0.2",
     "react-modal": "^1.2.1",
+    "react-motion": "^0.4.3",
     "react-tap-event-plugin": "^1.0.0"
   }
 }

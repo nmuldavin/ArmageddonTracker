@@ -7,7 +7,7 @@ var Motion = require('react-motion').Motion;
 var Modal = require('react-modal');
 var DatePicker = require('react-datepicker');
 var CalendarDay = require('./CalendarDay');
-var Header = require('./Header2');
+var Header = require('./Header');
 
 
 var Calendar = React.createClass({
