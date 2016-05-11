@@ -1,7 +1,6 @@
 var React = require('react');
 var request = require('browser-request');
-var dateFormat = require('dateformat');
-var isodate = require('isodate');
+var moment = require('moment');
 var Button = require('react-button');
 var dateMath = require('date-arithmetic');
 var CalendarDay = require('./CalendarDay');
@@ -11,9 +10,9 @@ var Header = require('./Header2');
 var Calendar = React.createClass({
   getInitialState: function() {
 
-    var start_date = new Date();
-    var end_date = dateMath.add(start_date, 6, "day");
-
+    var start_date = moment().utc();
+    var end_date = start_date.clone().add(6, "day");
+    console.log(end_date);
     return {
       start_date: start_date,
       end_date: end_date,
@@ -55,7 +54,7 @@ var Calendar = React.createClass({
 
     for (var date in APIData.near_earth_objects) {
       var entry = {};
-      entry.date = isodate(date);
+      entry.date = moment.utc(date);
       entry.encounters = [];
 
       for (var i = 0; i < APIData.near_earth_objects[date].length; i++) {
@@ -86,8 +85,8 @@ var Calendar = React.createClass({
       url: "https://api.nasa.gov/neo/rest/v1/feed",
       method: "GET",
       qs: {
-        start_date: dateFormat(this.state.start_date, "isoDate", true),
-        end_date: dateFormat(this.state.end_date, "isoDate", true),
+        start_date: this.state.start_date.format("YYYY-MM-DD"),
+        end_date: this.state.end_date.format("YYYY-MM-DD"),
         api_key: "aIBslm3N2EBbDjD9dD6lBxNwJVtDAhrb2NaR2ARW"
       }
     };
@@ -107,8 +106,8 @@ var Calendar = React.createClass({
   },
   loadmore: function(e) {
     this.setState({
-      start_date: dateMath.add(this.state.start_date, 7, "day"),
-      end_date: dateMath.add(this.state.end_date, 7, "day")
+      start_date: this.state.start_date.clone().add(7, "day"),
+      end_date: this.state.end_date.clone().add(7, "day")
     }, this.getEncountersData);
   },
   render: function() {

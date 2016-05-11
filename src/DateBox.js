@@ -1,5 +1,4 @@
 var React = require('react');
-var dateFormat = require('dateformat');
 
 var DateBox = React.createClass({
   render: function() {
@@ -15,7 +14,7 @@ var DateBox = React.createClass({
       fontWeight: "bold"
     };
 
-    var dateString = dateFormat(this.props.date, "dddd mmmm dS, yyyy");
+    var dateString = this.props.date.format("dddd MMMM Do, YYYY");
 
     return (
       <div style={style}>

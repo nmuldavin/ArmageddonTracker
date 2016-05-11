@@ -24,7 +24,7 @@ var Header = React.createClass({
       position: "relative",
       transform: "translateY(-50%)",
       textAlign: "center"
-    }
+    };
 
     return (
       <div style={containerStyle}>
