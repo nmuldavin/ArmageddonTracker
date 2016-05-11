@@ -273,7 +273,7 @@ var Calendar = React.createClass({
           onRequestClose={that.closeInfo}
           style={customStyles}>
           <h1 style={{color: "black", letterSpacing: 10}}>Armageddon Tracker</h1>
-          <img src="../images/bruce.jpg" style={imageStyle}/>
+          <img src="images/bruce.jpg" style={imageStyle}/>
           <div style={{textAlign: "left"}}>
             <p>Armageddon Tracker logs upcoming closest-approaches with known asteroids. Displayed dates are UTC time, displayed dimensions are the maximum and minimum
               estimated diameter. Unnamed asteroids (the vast majority) are labeled with their <a style={linkStyle} href="http://www.minorplanetcenter.net/iau/info/HowNamed.html">provisional designation</a>.

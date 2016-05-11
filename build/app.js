@@ -29190,7 +29190,7 @@ var Calendar = React.createClass({
           { style: { color: "black", letterSpacing: 10 } },
           'Armageddon Tracker'
         ),
-        React.createElement('img', { src: '../images/bruce.jpg', style: imageStyle }),
+        React.createElement('img', { src: 'images/bruce.jpg', style: imageStyle }),
         React.createElement(
           'div',
           { style: { textAlign: "left" } },
