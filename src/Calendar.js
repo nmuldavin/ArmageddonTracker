@@ -2,7 +2,9 @@ var React = require('react');
 var request = require('browser-request');
 var moment = require('moment');
 var Button = require('react-button');
-var dateMath = require('date-arithmetic');
+var spring = require('react-motion').spring;
+var Motion = require('react-motion').Motion;
+var Modal = require('react-modal');
 var CalendarDay = require('./CalendarDay');
 var Header = require('./Header2');
 
@@ -12,12 +14,20 @@ var Calendar = React.createClass({
 
     var start_date = moment().utc();
     var end_date = start_date.clone().add(6, "day");
-    console.log(end_date);
+
     return {
+      infoOpen: false,
+      datePickOpen: false,
       start_date: start_date,
       end_date: end_date,
       data: []
-    }
+    };
+  },
+  openInfo: function() {
+    this.setState({infoOpen: true});
+  },
+  closeInfo: function() {
+    this.setState({infoOpen: false});
   },
   componentDidMount: function() {
     this.getEncountersData();
@@ -120,7 +130,7 @@ var Calendar = React.createClass({
       );
     });
 
-    var buttonTheme = {
+    var bottomButtonTheme = {
       style: {
         width: "100%",
         border: "none",
@@ -129,15 +139,114 @@ var Calendar = React.createClass({
         letterSpacing: 6
       },
       overStyle: {
-        background: "gray"
+        color: "white",
+        background: "inherit"
       }
+    };
+
+    var topButtonTheme = {
+      style: {
+        width: 200,
+        border: "none",
+        margin: 0,
+        fontSize: "1.0em",
+        letterSpacing: 6,
+        outline: "none"
+      },
+      overStyle: {
+        color: "white",
+        background: "inherit"
+      }
+    };
+
+    var buttonBoxStyle = {
+      width: window.innerWidth,
+      height: 50,
+      display: "block",
+      float: "left",
+      textAlign: "center"
+    }
+
+    var extraStyle = {
+      width: "100%",
+      minWidth: 2000,
+      borderBottom: "1px solid #262626",
+      display: "block",
+      float: "left"
+    };
+
+    var getInfoStyles = function(y) {
+      return {
+        overlay : {
+          position          : 'fixed',
+          top               : 0,
+          left              : 0,
+          right             : 0,
+          bottom            : 0,
+          backgroundColor   : 'rgba(0, 0, 0, 0.5)'
+        },
+        content : {
+          top                   : y.toString() + '%',
+          left                  : '50%',
+          right                 : 'auto',
+          bottom                : 'auto',
+          marginRight           : '-50%',
+          transform             : 'translate(-50%, -50%)',
+          backgroundColor       : "#f2f2f2",
+          border: "none",
+          borderRadius: 0,
+          textAlign: "center",
+          color: "gray",
+          width: 500
+        }
+      };
+    };
+
+    var info = function(val) {
+      var customStyles = getInfoStyles(val.y);
+
+      var imageStyle = {
+        height: 300,
+        width: 400,
+        display: "inline-block"
+      };
+
+      var linkStyle = {
+        textDeoration: "none",
+        color: "black"
+      };
+
+      return (
+        <Modal
+          isOpen={that.state.infoOpen}
+          onRequestClose={that.closeInfo}
+          style={customStyles}>
+          <h1 style={{color: "black", letterSpacing: 10}}>Armageddon Tracker</h1>
+          <img src="../images/bruce.jpg" style={imageStyle}/>
+          <div style={{textAlign: "left"}}>
+            <p>Armageddon Tracker logs upcoming closest-approaches with known asteroids. Unnamed asteroids (the vast majority)
+              are labeled with their <a style={linkStyle} href="http://www.minorplanetcenter.net/iau/info/HowNamed.html">provisional designation</a>.
+            </p>
+            <p>All data is from the NASA Near Earth Object Web Service (NeoWs). The front-end is built entirely in React by <a style={linkStyle} href="http://www.nmuldavin.com">Noah Muldavin</a>
+              , you should give him a job.</p>
+          </div>
+        </Modal>);
     };
 
     return (
       <div>
         <Header/>
+        <div style={extraStyle}>
+          <div style={buttonBoxStyle}>
+            <Button theme={topButtonTheme} onClick={this.openInfo} >What is this?</Button>
+            <Button theme={topButtonTheme} onClick={this.loadmore} >Custom Dates</Button>
+          </div>
+        </div>
         {days}
-        <Button theme={buttonTheme} onClick={this.loadmore} >Load More</Button>
+        <Button theme={bottomButtonTheme} onClick={this.loadmore} >{this.state.data.length === 0 ? "Loading ... ": "Load More"}</Button>
+        <Motion defaultStyle={{y: 0}} style={{y: spring(this.state.infoOpen ? 50 : -50, {stiffness: 100})}}>
+          {info}
+        </Motion>
       </div>
     )
   }

@@ -7,9 +7,7 @@ var Header = React.createClass({
       height: 200,
       minWidth: 2000,
       display: "block",
-      float: "left",
-      borderBottom: "1px solid #262626",
-      paddingBottom: 5
+      float: "left"
     };
 
     var titleStyle = {
