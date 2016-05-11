@@ -5,7 +5,7 @@ var isodate = require('isodate');
 var Button = require('react-button');
 var dateMath = require('date-arithmetic');
 var CalendarDay = require('./CalendarDay');
-var Header = require('./Header');
+var Header = require('./Header2');
 
 
 var Calendar = React.createClass({
