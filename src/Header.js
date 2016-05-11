@@ -2,6 +2,7 @@ var React = require('react');
 var Modal = require('react-modal');
 var spring = require('react-motion').spring;
 var Motion = require('react-motion').Motion;
+var Button = require('react-button');
 
 var Header = React.createClass({
     getInitialState: function() {
@@ -17,16 +18,20 @@ var Header = React.createClass({
 
         var style = {
             height: 200,
-            width: "100%",
+            width: 2000,
+            position: "relative",
+            minWidth: "100%",
             color: "white",
-            display: "inline-block",
+            display: "block",
             float: "left",
-            borderBottom: "1px solid #262626"
+            borderBottom: "1px solid #262626",
+            paddingBottom: 5
         };
 
         var titleStyle = {
             fontSize: "4em",
             top: "50%",
+            width: "100%",
             letterSpacing: 13,
             position: "relative",
             marginLeft: 50,
@@ -95,10 +100,35 @@ var Header = React.createClass({
                 </Modal>);
         };
 
+        var theme = {
+            style: {
+                position: "relative",
+                border: "none",
+                margin: 0,
+                fontSize: "0.7em",
+                letterSpacing: 6,
+                float: "bottom",
+                display: "inline-block",
+                transform: "translate-y(-50%)",
+                outline: "none"
+            },
+            overStyle: {
+                background: "gray"
+            },
+        };
+
+        var buttonBoxStyle = {
+            bottom: 0,
+            position: "absolute",
+            left: 0
+        };
+
         return (
             <div style={style}>
                 <div style={titleStyle}>Armageddon Tracker</div>
-                <button onClick={this.openModal}>Open Modal</button>
+                <div style={buttonBoxStyle}>
+                    <Button theme={theme} onClick={this.openModal} >What is this?</Button>
+                </div>
                 <Motion defaultStyle={{y: 0}} style={{y: spring(this.state.modalIsOpen ? 50 : 0)}}>
                     {mod}
                 </Motion>

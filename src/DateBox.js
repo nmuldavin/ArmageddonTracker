@@ -9,7 +9,7 @@ var DateBox = React.createClass({
       letterSpacing: 6,
       padding: 4,
       float: "left",
-      color: "#262626",
+      color: "#404040",
       fontSize: "1.7em",
       textAlign: "center",
       fontWeight: "bold"
