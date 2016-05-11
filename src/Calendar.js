@@ -12,7 +12,7 @@ var Calendar = React.createClass({
   getInitialState: function() {
 
     var start_date = new Date();
-    var end_date = dateMath.add(start_date, 7, "day");
+    var end_date = dateMath.add(start_date, 6, "day");
 
     return {
       start_date: start_date,
@@ -107,8 +107,8 @@ var Calendar = React.createClass({
   },
   loadmore: function(e) {
     this.setState({
-      start_date: dateMath.add(this.state.start_date, 8, "day"),
-      end_date: dateMath.add(this.state.end_date, 8, "day")
+      start_date: dateMath.add(this.state.start_date, 7, "day"),
+      end_date: dateMath.add(this.state.end_date, 7, "day")
     }, this.getEncountersData);
   },
   render: function() {
