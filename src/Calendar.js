@@ -2,10 +2,10 @@ var React = require('react');
 var request = require('browser-request');
 var dateFormat = require('dateformat');
 var isodate = require('isodate');
-var CalendarDay = require('./CalendarDay');
-var Header = require('./Header');
 var Button = require('react-button');
 var dateMath = require('date-arithmetic');
+var CalendarDay = require('./CalendarDay');
+var Header = require('./Header');
 
 
 var Calendar = React.createClass({
@@ -121,7 +121,7 @@ var Calendar = React.createClass({
       );
     });
 
-    var theme = {
+    var buttonTheme = {
       style: {
         width: "100%",
         border: "none",
@@ -133,11 +133,12 @@ var Calendar = React.createClass({
         background: "gray"
       }
     };
+
     return (
       <div>
         <Header/>
         {days}
-        <Button theme={theme} onClick={this.loadmore} >Load More</Button>
+        <Button theme={buttonTheme} onClick={this.loadmore} >Load More</Button>
       </div>
     )
   }

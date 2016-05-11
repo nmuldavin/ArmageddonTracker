@@ -18,6 +18,7 @@ var ExpandingCircle = React.createClass({
     var defaults = {
       padding: 0,
       textAlign: "center",
+      overflow: "hidden",
       width: radius*2,
       height: radius*2,
       borderRadius: radius

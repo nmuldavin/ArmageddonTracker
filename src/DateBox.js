@@ -16,6 +16,7 @@ var DateBox = React.createClass({
     };
 
     var dateString = dateFormat(this.props.date, "dddd mmmm dS, yyyy");
+
     return (
       <div style={style}>
         {dateString}

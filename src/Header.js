@@ -2,6 +2,7 @@ var React = require('react');
 var Modal = require('react-modal');
 var spring = require('react-motion').spring;
 var Motion = require('react-motion').Motion;
+var presets = require('react-motion').presets;
 var Button = require('react-button');
 
 var Header = React.createClass({
@@ -129,7 +130,7 @@ var Header = React.createClass({
                 <div style={buttonBoxStyle}>
                     <Button theme={theme} onClick={this.openModal} >What is this?</Button>
                 </div>
-                <Motion defaultStyle={{y: 0}} style={{y: spring(this.state.modalIsOpen ? 50 : 0)}}>
+                <Motion defaultStyle={{y: 0}} style={{y: spring(this.state.modalIsOpen ? 50 : 0, presets.gentle)}}>
                     {mod}
                 </Motion>
             </div>

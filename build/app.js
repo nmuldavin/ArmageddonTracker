@@ -24966,17 +24966,6 @@ var React = require('react');
 var ExpandingCircle = require('./ExpandingCircle');
 var formatNumber = require('format-number-with-string');
 
-var asteroidStyle = {
-  position: "relative",
-  top: "50%",
-  fontSize: "115%",
-  margin: 0,
-  transform: "translateY(-50%)",
-  overflow: "visible",
-  float: "left",
-  backgroundColor: "gray"
-};
-
 var wholeNumber = function (num) {
   return formatNumber(num, '##,##0.');
 };
@@ -24985,6 +24974,16 @@ var Asteroid = React.createClass({
   displayName: 'Asteroid',
 
   render: function () {
+    var asteroidStyle = {
+      position: "relative",
+      top: "50%",
+      fontSize: "115%",
+      margin: 0,
+      transform: "translateY(-50%)",
+      float: "left",
+      backgroundColor: "gray"
+    };
+
     var contentStyle = {
       fontSize: "70%",
       display: "inlineBlock",
@@ -24993,14 +24992,17 @@ var Asteroid = React.createClass({
       top: "50%",
       transform: "translateX(-50%) translateY(-45%)"
     };
+
     var tableStyle = {
       textAlign: "left",
       whiteSpace: "nowrap"
     };
+
     var linkStyle = {
       color: "#000066",
       textDecoration: "none"
     };
+
     var moreInfo = React.createElement(
       'div',
       { style: contentStyle },
@@ -25064,23 +25066,18 @@ var Asteroid = React.createClass({
         )
       )
     );
+
     var top = this.props.data.name;
+
     var bottom = wholeNumber(this.props.data.min_diameter) + "-" + wholeNumber(this.props.data.max_diameter) + "m";
-    return React.createElement(
-      ExpandingCircle,
-      {
-        dimensions: { standardRadius: 60, expandedRadius: 100 },
-        style: asteroidStyle,
-        top: top,
-        bottom: bottom,
-        extraContent: moreInfo
-      },
-      React.createElement(
-        'p',
-        { style: { marginTop: 35 } },
-        this.props.data.name
-      )
-    );
+
+    return React.createElement(ExpandingCircle, {
+      dimensions: { standardRadius: 60, expandedRadius: 100 },
+      style: asteroidStyle,
+      top: top,
+      bottom: bottom,
+      extraContent: moreInfo
+    });
   }
 });
 
@@ -25206,7 +25203,7 @@ var Calendar = React.createClass({
       return React.createElement(CalendarDay, { style: { width: "100%" }, data: entry.encounters, date: entry.date, key: entry.date });
     });
 
-    var theme = {
+    var buttonTheme = {
       style: {
         width: "100%",
         border: "none",
@@ -25225,7 +25222,7 @@ var Calendar = React.createClass({
       days,
       React.createElement(
         Button,
-        { theme: theme, onClick: this.loadmore },
+        { theme: buttonTheme, onClick: this.loadmore },
         'Load More'
       )
     );
@@ -25292,6 +25289,7 @@ var DateBox = React.createClass({
     };
 
     var dateString = dateFormat(this.props.date, "dddd mmmm dS, yyyy");
+
     return React.createElement(
       'div',
       { style: style },
@@ -25325,6 +25323,7 @@ var ExpandingCircle = React.createClass({
     var defaults = {
       padding: 0,
       textAlign: "center",
+      overflow: "hidden",
       width: radius * 2,
       height: radius * 2,
       borderRadius: radius
@@ -25422,6 +25421,7 @@ var React = require('react');
 var Modal = require('react-modal');
 var spring = require('react-motion').spring;
 var Motion = require('react-motion').Motion;
+var presets = require('react-motion').presets;
 var Button = require('react-button');
 
 var Header = React.createClass({
@@ -25588,7 +25588,7 @@ var Header = React.createClass({
             ),
             React.createElement(
                 Motion,
-                { defaultStyle: { y: 0 }, style: { y: spring(this.state.modalIsOpen ? 50 : 0) } },
+                { defaultStyle: { y: 0 }, style: { y: spring(this.state.modalIsOpen ? 50 : 0, presets.gentle) } },
                 mod
             )
         );
