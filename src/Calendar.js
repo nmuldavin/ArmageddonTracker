@@ -5,6 +5,7 @@ var Button = require('react-button');
 var spring = require('react-motion').spring;
 var Motion = require('react-motion').Motion;
 var Modal = require('react-modal');
+var DatePicker = require('react-datepicker');
 var CalendarDay = require('./CalendarDay');
 var Header = require('./Header2');
 
@@ -18,6 +19,7 @@ var Calendar = React.createClass({
     return {
       infoOpen: false,
       datePickOpen: false,
+      dateError: false,
       start_date: start_date,
       end_date: end_date,
       data: []
@@ -29,8 +31,42 @@ var Calendar = React.createClass({
   closeInfo: function() {
     this.setState({infoOpen: false});
   },
+  openDatePicker: function() {
+    this.setState({datePickOpen: true});
+  },
+  closeDatePicker: function() {
+    this.setState({datePickOpen: false});
+  },
   componentDidMount: function() {
     this.getEncountersData();
+  },
+  handleChangeStart: function(date) {
+    this.setState({
+      start_date: date,
+      end_date: date.clone().add(7, "day")
+    })
+  },
+  handleChangeEnd: function(date) {
+    this.setState({
+      end_date: date
+    })
+  },
+  handleDateSubmit(e) {
+    if (this.state.end_date.isAfter(this.state.start_date.clone().add(7, "day"))) {
+      this.setState({
+        dateError: "Dates can be no more than seven days apart."
+      });
+    } else if (this.state.start_date.isAfter(this.state.end_date)) {
+      this.setState({
+        dateError: "Invalid date range. Make sure the end comes after the start!"
+      });
+    } else {
+      this.setState({
+        datePickOpen: false,
+        dateError: false,
+        data: []
+      }, this.getEncountersData);
+    }
   },
   // constructs cleaner/smaller representation of asteroid data
   saveImportantEncounterData: function(APIEncounterData) {
@@ -159,6 +195,21 @@ var Calendar = React.createClass({
       }
     };
 
+    var submitButtonTheme = {
+      style: {
+        width: 200,
+        border: "none",
+        margin: 0,
+        fontSize: "1.0em",
+        outline: "none",
+        color: "black"
+      },
+      overStyle: {
+        color: "white",
+        background: "inherit"
+      }
+    };
+
     var buttonBoxStyle = {
       width: window.innerWidth,
       height: 50,
@@ -212,8 +263,8 @@ var Calendar = React.createClass({
       };
 
       var linkStyle = {
-        textDeoration: "none",
-        color: "black"
+        color: "#000066",
+        textDecoration: "none"
       };
 
       return (
@@ -224,12 +275,50 @@ var Calendar = React.createClass({
           <h1 style={{color: "black", letterSpacing: 10}}>Armageddon Tracker</h1>
           <img src="../images/bruce.jpg" style={imageStyle}/>
           <div style={{textAlign: "left"}}>
-            <p>Armageddon Tracker logs upcoming closest-approaches with known asteroids. Unnamed asteroids (the vast majority)
-              are labeled with their <a style={linkStyle} href="http://www.minorplanetcenter.net/iau/info/HowNamed.html">provisional designation</a>.
+            <p>Armageddon Tracker logs upcoming closest-approaches with known asteroids. Displayed dates are UTC time, displayed dimensions are the maximum and minimum
+              estimated diameter. Unnamed asteroids (the vast majority) are labeled with their <a style={linkStyle} href="http://www.minorplanetcenter.net/iau/info/HowNamed.html">provisional designation</a>.
             </p>
             <p>All data is from the NASA Near Earth Object Web Service (NeoWs). The front-end is built entirely in React by <a style={linkStyle} href="http://www.nmuldavin.com">Noah Muldavin</a>
               , you should give him a job.</p>
           </div>
+        </Modal>);
+    };
+
+    var datePicker = function(val) {
+      var customStyles = getInfoStyles(val.y);
+
+      var errorStyle = {
+        width: "100%",
+        color: "red",
+        display: "block"
+      };
+
+      return (
+        <Modal
+          isOpen={that.state.datePickOpen}
+          onRequestClose={that.closeDatePicker}
+          style={customStyles}>
+          <h1 style={{color: "black", letterSpacing: 10}}>Custom Date Range</h1>
+          <p> Search any days past, present, or future. Dates must be less than seven days apart.</p>
+          <div style={{width: "100%"}}>
+            <DatePicker
+              selected={that.state.start_date}
+              startDate={that.state.start_date}
+              endDate={that.state.end_date}
+              onChange={that.handleChangeStart}
+              className='dateField'
+            />
+            <span>-</span>
+            <DatePicker
+              selected={that.state.end_date}
+              startDate={that.state.start_date}
+              endDate={that.state.end_date}
+              onChange={that.handleChangeEnd}
+              className='dateField'
+            />
+          </div>
+          <div style={errorStyle}>{that.state.dateError}</div>
+          <Button theme={submitButtonTheme} onClick={that.handleDateSubmit} >Submit</Button>
         </Modal>);
     };
 
@@ -239,13 +328,16 @@ var Calendar = React.createClass({
         <div style={extraStyle}>
           <div style={buttonBoxStyle}>
             <Button theme={topButtonTheme} onClick={this.openInfo} >What is this?</Button>
-            <Button theme={topButtonTheme} onClick={this.loadmore} >Custom Dates</Button>
+            <Button theme={topButtonTheme} onClick={this.openDatePicker} >Custom Dates</Button>
           </div>
         </div>
         {days}
         <Button theme={bottomButtonTheme} onClick={this.loadmore} >{this.state.data.length === 0 ? "Loading ... ": "Load More"}</Button>
         <Motion defaultStyle={{y: 0}} style={{y: spring(this.state.infoOpen ? 50 : -50, {stiffness: 100})}}>
           {info}
+        </Motion>
+        <Motion defaultStyle={{y: 0}} style={{y: spring(this.state.datePickOpen ? 50 : -50, {stiffness: 100})}}>
+          {datePicker}
         </Motion>
       </div>
     )
