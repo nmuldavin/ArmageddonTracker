@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import { Ping, Home } from './routes/routes';
-import Header from './components';
+import { Header } from './components';
 import store from './store/createStore';
 import actionTypes from './store/actionTypes';
 

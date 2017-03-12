@@ -4,7 +4,9 @@
  * to the app or completely reusable
  */
 import Header from './Header/Header';
+import ExpandingCircle from './ExpandingCircle/ExpandingCircle';
 
 export {
-  Header as default,
+  Header,
+  ExpandingCircle
 };
