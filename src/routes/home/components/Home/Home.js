@@ -8,9 +8,11 @@ import ExpandingCircle from '../../../../components/ExpandingCircle/ExpandingCir
 /**
  * Home view component
  */
+
+const props = { backgroundColor: 'blue' };
 const Home = () => (
   <div>
-    <ExpandingCircle />
+    <ExpandingCircle {...props} />
   </div>
 );
 
