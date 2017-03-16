@@ -17,6 +17,9 @@ const karmaConfig = {
   singleRun: !argv.watch,
   frameworks: ['mocha'],
   reporters: ['mocha'],
+  client: {
+    captureConsole: true,
+  },
   preprocessors: {
     [`${config.testDir}/testBundler.js`]: ['webpack'],
   },
@@ -54,6 +57,12 @@ const karmaConfig = {
   },
   coverageReporter: {
     reporters: config.coverageReporters,
+  },
+  customLaunchers: {
+    PhantomJS_custom: {
+      base: 'PhantomJS',
+      debug: true,
+    },
   },
 };
 
