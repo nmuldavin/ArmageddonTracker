@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './utils/utils';
 import store from './store/createStore';
 import ConnectedRoutes from './Routes';
+import './scss/core.scss';
 
 
 /**

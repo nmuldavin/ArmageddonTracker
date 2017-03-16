@@ -10,7 +10,7 @@ import ExpandingCircle from '../../../../components/ExpandingCircle/ExpandingCir
  */
 const Home = () => (
   <div>
-    <ExpandingCircle></ExpandingCircle>
+    <ExpandingCircle />
   </div>
 );
 

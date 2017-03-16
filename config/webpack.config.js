@@ -111,7 +111,7 @@ if (ENV_DEV) {
   debug('Enable plugins for live development (HMR, NoErrors).');
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   );
 } else if (ENV_PROD) {
   debug('Enable plugins for production (OccurenceOrder, UglifyJS).');
@@ -151,8 +151,8 @@ const cssLoader = importLoaders => ({
   loader: 'css-loader',
   options: {
     sourceMap: true,
-    modules: true,
     camelCase: true,
+    modules: true,
     importLoaders,
   },
 });
@@ -209,7 +209,7 @@ webpackConfig.module.rules = [
   },
   {
     test: /\.css$/,
-    loaders: wrapExtractText([
+    use: wrapExtractText([
       styleLoader,
       cssLoader(1),
       postcssLoader,
@@ -217,7 +217,7 @@ webpackConfig.module.rules = [
   },
   {
     test: /\.scss$/,
-    loaders: wrapExtractText([
+    use: wrapExtractText([
       styleLoader,
       cssLoader(2),
       postcssLoader,

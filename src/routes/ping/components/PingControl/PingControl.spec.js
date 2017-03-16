@@ -43,12 +43,12 @@ describe('(Component) Counter', () => {
   });
 
   it('Should have a button that dispatches a `ping` action when clicked', () => {
-    spies.ping.should.have.not.been.called;
+    expect(spies.ping).to.have.not.been.called;
 
     const button = wrapper.find('button');
 
     button.simulate('click');
 
-    spies.ping.should.have.been.called;
+    expect(spies.ping).to.have.been.called;
   });
 });

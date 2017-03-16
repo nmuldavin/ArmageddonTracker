@@ -8,5 +8,5 @@ import ExpandingCircle from './ExpandingCircle/ExpandingCircle';
 
 export {
   Header,
-  ExpandingCircle
+  ExpandingCircle,
 };

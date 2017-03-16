@@ -1,0 +1,50 @@
+@import 'elements';
+
+@mixin circle-expansion-transition ($properties) {
+  transition: all 0.3s ease-in-out;
+  transition-property: $properties
+}
+
+@mixin fillWidthAndCenterContent {
+  width: 100%;
+  text-align: center;
+}
+
+@mixin centerVerticalAbsolutePosition {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.circle {
+  @include circle(60px);
+  @include circle-expansion-transition((width, height))
+  background-color: green;
+  position: relative;
+
+  > .midContent {
+    @include centerVerticalAbsolutePosition;
+    @include fillWidthAndCenterContent;
+    @include circle-expansion-transition(opacity);
+    opacity: 0;
+  }
+
+  > .topContent {
+    position: absolute;
+    top: 30px;
+    @include fillWidthAndCenterContent;
+  }
+
+  > .bottomContent {
+    position: absolute;
+    bottom: 30px;
+    @include fillWidthAndCenterContent;
+  }
+
+  &:hover {
+    @include circle(100px);
+    & > .midContent {
+      opacity: 1;
+    }
+  }
+}

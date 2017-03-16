@@ -64,8 +64,8 @@ if (config.globals.REPORT_COVERAGE) {
     test: /\.(js|jsx)$/,
     include: new RegExp(config.clientDir),
     exclude: /(node_modules|\.spec\.js$)/,
-    use: 'babel-loader',
-    query: Object.assign({}, config.babelConfig, {
+    loader: 'babel-loader',
+    options: Object.assign({}, config.babelConfig, {
       plugins: (config.babelConfig.plugins || []).concat('istanbul'),
     }),
   });
