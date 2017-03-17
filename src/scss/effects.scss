@@ -1,0 +1,9 @@
+@mixin transition-all ($properties, $duration, $effect) {
+  $transitions: ();
+
+  @each $property in $properties {
+    $transitions: append($transitions, $property $duration $effect, comma);
+  }
+
+  transition: $transitions;
+}
