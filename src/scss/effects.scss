@@ -1,3 +1,7 @@
+/**
+ * Applies transition specified by $duration and $property to all properties
+ * specified in list $properties
+ */
 @mixin transition-all ($properties, $duration, $effect) {
   $transitions: ();
 
