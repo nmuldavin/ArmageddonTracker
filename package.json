@@ -9,8 +9,9 @@
     "deploy": "better-npm-run deploy",
     "deploy:prod": "better-npm-run deploy:prod",
     "deploy:dev": "better-npm-run deploy:dev",
-    "test": "better-npm-run test",
+    "test": "better-npm-run test && npm run test:server",
     "test:dev": "npm run test -- --watch",
+    "test:server": "mocha --recursive './server/**/*.spec.js'",
     "lint": "eslint build config src server",
     "start": "better-npm-run start",
     "start:prod": "better-npm-run start:prod"
@@ -131,14 +132,17 @@
     "yargs": "^7.0.2"
   },
   "dependencies": {
+    "camelize": "^1.0.0",
+    "jsonstream": "^1.0.3",
     "most": "^1.2.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
-    "react-router-dom": "^4.0.0",
     "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0",
     "redbox-react": "^1.3.4",
     "redux": "^3.6.0",
-    "redux-most": "0.1.8"
+    "redux-most": "0.1.8",
+    "request": "^2.81.0"
   }
 }
