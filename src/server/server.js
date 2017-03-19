@@ -1,7 +1,7 @@
 /* eslint global-require: 0 */
 const express = require('express');
 const compress = require('compression');
-const config = require('../config/config.js');
+const config = require('../../config/config.js');
 const api = require('./api/api');
 
 const server = express();

@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const debug = require('debug')('app:build:webpack-compiler');
+const debug = require('debug')('app:build:webpack-compile');
 const config = require('../config/config.js');
 
 function webpackCompiler(webpackConfig, statsFormatSpec) {

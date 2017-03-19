@@ -11,7 +11,7 @@ const mapEntries = (obj, fn) => Object.entries(obj)
     const newObj = {};
     newObj[key] = value;
 
-    return Object.assign(newObj, accum);
+    return Object.assign({}, newObj, accum);
   }, {});
 
 /**

@@ -9,16 +9,16 @@
     "deploy": "better-npm-run deploy",
     "deploy:prod": "better-npm-run deploy:prod",
     "deploy:dev": "better-npm-run deploy:dev",
-    "test": "better-npm-run test && npm run test:server",
+    "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch",
-    "test:server": "mocha --recursive './server/**/*.spec.js'",
-    "lint": "eslint build config src server",
+    "test:server": "mocha --recursive './src/server/**/*.spec.js' -w",
+    "lint": "eslint dev src",
     "start": "better-npm-run start",
     "start:prod": "better-npm-run start:prod"
   },
   "betterScripts": {
     "compile": {
-      "command": "node build/compile",
+      "command": "node dev/compile",
       "env": {
         "DEBUG": "app:*"
       }
@@ -44,13 +44,13 @@
       }
     },
     "start": {
-      "command": "node server/server",
+      "command": "node src/server/server",
       "env": {
         "DEBUG": "app:*"
       }
     },
     "start:prod": {
-      "command": "node server/server",
+      "command": "node src/server/server",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"

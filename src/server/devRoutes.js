@@ -1,8 +1,8 @@
 const express = require('express');
 const debug = require('debug')('app:server');
 const webpack = require('webpack');
-const webpackConfig = require('../config/webpack.config');
-const config = require('../config/config.js');
+const webpackConfig = require('../../config/webpack.config');
+const config = require('../../config/config.js');
 
 const devRoutes = express.Router();
 const compiler = webpack(webpackConfig);
@@ -20,7 +20,7 @@ devRoutes.use(require('webpack-dev-middleware')(compiler, {
 }));
 devRoutes.use(require('webpack-hot-middleware')(compiler));
 
-// Serve static assets from ~/src/static since Webpack is unaware of
+// Serve static assets from ~/client/static since Webpack is unaware of
 // these files. This middleware doesn't need to be enabled outside
 // of development since this directory will be copied into ~/dist
 // when the application is compiled.

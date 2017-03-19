@@ -2,7 +2,7 @@ const request = require('request');
 const querystring = require('querystring');
 const JSONStream = require('jsonstream');
 const camelize = require('camelize');
-const secrets = require('../../../secrets.json');
+const secrets = require('../../../../secrets.json');
 const { map } = require('../../streamUtils/streamUtils');
 
 const nasaNeoApiBase = 'https://api.nasa.gov/neo/rest/v1/feed';

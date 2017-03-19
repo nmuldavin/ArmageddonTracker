@@ -14,11 +14,10 @@ const config = {
    * Project structure
    */
   basePath: path.resolve(__dirname, '..'),
-  clientDir: 'src',
+  clientDir: 'src/client',
   distDir: 'dist',
-  serverDir: 'server',
-  testDir: 'dev',
-
+  serverDir: 'src/server',
+  devScriptsDir: 'dev',
   /**
    * server config
    */
