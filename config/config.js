@@ -15,8 +15,9 @@ const config = {
    */
   basePath: path.resolve(__dirname, '..'),
   clientDir: 'src/client',
-  distDir: 'dist',
+  sharedDir: 'src/shared',
   serverDir: 'src/server',
+  distDir: 'dist',
   devScriptsDir: 'dev',
   /**
    * server config
@@ -56,7 +57,7 @@ const config = {
    */
   coverageReporters: [
     { type: 'text-summary' },
-    { type: 'lcov', dir: 'coverage' },
+    { type: 'lcov', dir: 'coverage/client' },
   ],
 };
 

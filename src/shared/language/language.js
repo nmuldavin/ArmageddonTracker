@@ -30,7 +30,7 @@ const mapKeys = (obj, fn) => mapEntries(obj, (key, val) => [fn(key), val]);
  */
 const mapValues = (obj, fn) => mapEntries(obj, (key, val) => [key, fn(val)]);
 
-export {
+module.exports = {
   mapEntries,
   mapKeys,
   mapValues,

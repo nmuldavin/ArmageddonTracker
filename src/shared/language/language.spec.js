@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import * as l from './language';
+const { expect } = require('chai');
+const l = require('./language');
 
 describe('(Library) Language Utilities', () => {
   const obj = {

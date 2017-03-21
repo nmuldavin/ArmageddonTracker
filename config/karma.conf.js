@@ -71,7 +71,7 @@ if (config.globals.REPORT_COVERAGE) {
   karmaConfig.webpack.module.rules.push({
     enforce: 'pre',
     test: /\.(js|jsx)$/,
-    include: new RegExp(config.clientDir),
+    include: new RegExp(`${config.clientDir}|${config.sharedDir}`),
     exclude: /(node_modules|\.spec\.js$)/,
     loader: 'babel-loader',
     options: Object.assign({}, config.babelConfig, {
