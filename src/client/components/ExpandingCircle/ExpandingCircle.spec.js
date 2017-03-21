@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { mount } from 'enzyme';
 import ExpandingCircle from './ExpandingCircle';
 import styles from './ExpandingCircle.scss';
-import { mapValues } from '../../../shared/language/language';
+import { mapValues } from 'shared/language/language';
 
 /**
  * Object where key is style and value is selector for that style

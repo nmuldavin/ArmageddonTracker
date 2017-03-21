@@ -3,8 +3,8 @@
  * Connects PingControl component to redux store and dispatch
  */
 import { connect } from 'react-redux';
-import actionTypes from '../../../../store/actionTypes';
-import PingControl from '../../components/PingControl/PingControl';
+import actionTypes from 'client/store/actionTypes';
+import PingControl from 'client/components/PingControl/PingControl';
 
 /**
  * mapStateToProps - function mapping store to props passed to PingControl

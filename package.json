@@ -16,7 +16,8 @@
     "test:server:dev": "better-npm-run test:server:dev",
     "lint": "eslint dev src",
     "start": "better-npm-run start",
-    "start:prod": "better-npm-run start:prod"
+    "start:prod": "better-npm-run start:prod",
+    "postinstall" : "node ./dev/link"
   },
   "betterScripts": {
     "compile": {

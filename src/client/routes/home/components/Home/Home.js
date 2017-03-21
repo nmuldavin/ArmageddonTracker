@@ -3,7 +3,7 @@
  * Home page view component
  */
 import React from 'react';
-import ExpandingCircle from '../../../../components/ExpandingCircle/ExpandingCircle';
+import ExpandingCircle from 'client/components/ExpandingCircle/ExpandingCircle';
 
 /**
  * Home view component

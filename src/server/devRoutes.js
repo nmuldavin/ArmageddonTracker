@@ -1,8 +1,8 @@
 const express = require('express');
 const debug = require('debug')('app:server');
 const webpack = require('webpack');
-const webpackConfig = require('../../config/webpack.config');
-const config = require('../../config/config.js');
+const webpackConfig = require('app/config/webpack.config');
+const config = require('app/config/config.js');
 
 const devRoutes = express.Router();
 const compiler = webpack(webpackConfig);

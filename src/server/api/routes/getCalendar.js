@@ -2,23 +2,11 @@ const request = require('request');
 const querystring = require('querystring');
 const JSONStream = require('jsonstream');
 const camelize = require('camelize');
-const secrets = require('../../../../secrets.json');
-const { map } = require('../../streamUtils/streamUtils');
+const secrets = require('app/secrets.json');
+const { map } = require('server/streamUtils/streamUtils');
+const { thread } = require('shared/language/language');
 
 const nasaNeoApiBase = 'https://api.nasa.gov/neo/rest/v1/feed';
-
-/**
- * Threads a value through any number of operations,
- * sending the next operation the result of the previous.
- * TODO: move to shared function utils directory
- * @param  {*} val Starting value
- * @param  {...Function} operations Operations to apply, in order
- * @return {*} Value returned by the final operation
- */
-const thread = (val, ...operations) => operations.reduce(
-  (prevVal, operation) => operation(prevVal),
-  val
-);
 
 /**
  * Maps start and end dates to querystring required by NASA api
