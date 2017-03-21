@@ -4,7 +4,7 @@
  */
 import { connect } from 'react-redux';
 import actionTypes from 'client/store/actionTypes';
-import PingControl from 'client/components/PingControl/PingControl';
+import PingControl from '../../components/PingControl/PingControl';
 
 /**
  * mapStateToProps - function mapping store to props passed to PingControl

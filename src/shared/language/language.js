@@ -30,8 +30,22 @@ const mapKeys = (obj, fn) => mapEntries(obj, (key, val) => [fn(key), val]);
  */
 const mapValues = (obj, fn) => mapEntries(obj, (key, val) => [key, fn(val)]);
 
+/**
+ * Threads a value through any number of operations,
+ * sending the next operation the result of the previous.
+ * TODO: move to shared function utils directory
+ * @param  {*} val Starting value
+ * @param  {...Function} operations Operations to apply, in order
+ * @return {*} Value returned by the final operation
+ */
+const thread = (val, ...operations) => operations.reduce(
+  (prevVal, operation) => operation(prevVal),
+  val
+);
+
 module.exports = {
   mapEntries,
   mapKeys,
   mapValues,
+  thread,
 };
